@@ -199,4 +199,96 @@ fptr(); // calls hello()
 
 ---
 
-Would you like this as a downloadable PDF or diagram-based explanation next?
+## ==========================  Cheat Sheet of pointer ==========================
+Here’s a **Pointer Cheat Sheet in C** as a well-organized code-based reference that complements the note you asked for earlier:
+
+---
+
+### ✅ `pointer_cheatsheet.c`
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+// Global Variables (Stored in Data/BSS Segment)
+int global_initialized = 100;     // Data segment
+int global_uninitialized;         // BSS segment
+
+// Function (Stored in Code Segment)
+void hello() {
+    printf("Hello from function pointer!\n");
+}
+
+int main() {
+
+    // 1. Stack Example (Local Variable)
+    int local_var = 10;
+    int *ptr_to_stack = &local_var;
+    printf("Stack variable: %d\n", *ptr_to_stack);
+
+    // 2. Heap Example (malloc)
+    int *ptr_to_heap = (int *)malloc(sizeof(int));
+    *ptr_to_heap = 200;
+    printf("Heap variable: %d\n", *ptr_to_heap);
+    free(ptr_to_heap); // Always free heap memory
+
+    // 3. BSS and Data Segment
+    printf("Global Initialized (Data): %d\n", global_initialized);
+    printf("Global Uninitialized (BSS): %d\n", global_uninitialized); // Initialized to 0 by default
+
+    // 4. Void Pointer
+    int a = 50;
+    void *void_ptr = &a;
+    printf("Void Pointer points to: %d\n", *(int *)void_ptr); // Must cast before dereferencing
+
+    // 5. Constant Pointers
+    const int ci = 5;
+    const int *ptr_to_const = &ci; // Cannot modify *ptr_to_const
+    printf("Pointer to const: %d\n", *ptr_to_const);
+
+    int modifiable = 20;
+    int *const const_ptr = &modifiable; // Cannot modify const_ptr itself
+    *const_ptr = 25; // But can change value
+    printf("Const pointer value: %d\n", *const_ptr);
+
+    // 6. Pointer Arithmetic
+    int arr[] = {1, 2, 3};
+    int *parr = arr;
+    printf("Pointer Arithmetic: %d %d %d\n", *parr, *(parr + 1), *(parr + 2));
+
+    // 7. Function Pointer
+    void (*func_ptr)() = hello;
+    func_ptr(); // Call the function through pointer
+
+    return 0;
+}
+```
+
+---
+
+### 📘 Compile & Run
+
+To compile:
+
+```sh
+gcc pointer_cheatsheet.c -o pointer_cheatsheet
+./pointer_cheatsheet
+```
+
+---
+
+### 📌 Summary of What's Covered in Code:
+
+| Feature             | Code Lines Covered                           |
+| ------------------- | -------------------------------------------- |
+| Stack memory        | `int local_var`, `ptr_to_stack`              |
+| Heap memory         | `malloc`, `free`                             |
+| Global Data/BSS     | `global_initialized`, `global_uninitialized` |
+| Void pointer        | `void *void_ptr = &a;`                       |
+| Const pointer types | `const int *`, `int *const`                  |
+| Pointer arithmetic  | `int arr[] = {1,2,3};`                       |
+| Function pointers   | `void (*func_ptr)() = hello;`                |
+
+---
+
+
